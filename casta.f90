@@ -483,6 +483,28 @@ module casta_task
         call insline(symb1=' ',symb2='=',symb3='=')
     end subroutine casta_task_exit
 
-
+    subroutine casta_task_message(mes1,mes2,mes3)
+        use casta_scr, only: casta_scr_textblancfields
+        character(len=*),intent(in),optional :: mes1,mes2,mes3
+        character(len=255) :: m1,m2,m3
+        if (present(mes1)) then
+            m1=mes1
+        else
+            m1=''
+        end if
+        if (present(mes2)) then
+            m2=mes2
+        else
+            m2=''
+        end if
+        if (present(mes3)) then
+            m3=mes3
+        else
+            m3=''
+        end if
+        call casta_scr_textblancfields(text1=m1,text2=m2,text3=m3,align1='r',align2='l',align3='l')
+    end subroutine casta_task_message
 
 end module casta_task
+
+

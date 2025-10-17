@@ -70,6 +70,7 @@ program hello
     call casta_job_message(mes1='mes1',mes2='mes2',mes3='mes3')
     call casta_task_entry(name='inputting',curdate='12.10.2025',curtime='16:23:35.123',&
                          descr='it is testing for casta job')
+    call casta_task_message(mes1='mes1',mes2='mes2',mes3='mes3')
     call casta_task_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
     call casta_job_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
     call casta_appl_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
