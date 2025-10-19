@@ -454,13 +454,13 @@ module casta_task
         call insline(symb1=' ',symb2='=',symb3='=')
         call instext(blanc1='=',&
                      text2='TASK',text3='ENTRY POINT',align2='r',align3='r')
-        if (present(name)) call instext(blanc1='-',&
+        if (present(name)) call instext(blanc1=':',&
                                         text2='NAME',text3=name,align2='r',align3='r')
-        if (present(curdate)) call instext(blanc1='-',&
+        if (present(curdate)) call instext(blanc1=':',&
                                            text2='CURRENT DATE',text3=curdate,align2='r',align3='r')
-        if (present(curtime)) call instext(blanc1='-',&
+        if (present(curtime)) call instext(blanc1=':',&
                                            text2='STARTING TIME',text3=curtime,align2='r',align3='r')
-        if (present(descr)) call instext(blanc3='-',&
+        if (present(descr)) call instext(blanc3=':',&
                                          text1=descr,text2='DESCRITPION',align1='r',align2='r')
         call insline(symb1='=',symb2='=',symb3='=')
     end subroutine casta_task_entry
@@ -470,13 +470,13 @@ module casta_task
                             instext => casta_scr_textblancfields
         character(len=*),intent(in),optional :: res,curdate,curtime,exetime
         call insline(symb1='=',symb2='=',symb3='=')
-        if (present(res)) call instext(blanc3='-',&
+        if (present(res)) call instext(blanc3=':',&
                                        text1=res,text2='RESULT',align1='r',align2='r')
-        if (present(curdate)) call instext(blanc1='-',&
+        if (present(curdate)) call instext(blanc1=':',&
                                            text2='CURRENT DATE',text3=curdate,align2='r',align3='r')
-        if (present(curtime)) call instext(blanc1='-',&
+        if (present(curtime)) call instext(blanc1=':',&
                                            text2='FINAL TIME',text3=curtime,align2='r',align3='r')
-        if (present(exetime)) call instext(blanc1='-',&
+        if (present(exetime)) call instext(blanc1=':',&
                                            text2='EXECUTING TIME',text3=exetime,align2='r',align3='r')
         call instext(blanc1='=',&
                      text2='TASK',text3='EXIT POINT',align2='r',align3='r')
@@ -508,3 +508,73 @@ module casta_task
 end module casta_task
 
 
+
+module casta_action
+
+    contains
+
+    subroutine casta_action_entry(descr,curdate,curtime)
+        use casta_scr,only: insline => casta_scr_linesymbolfields,&
+                            instext => casta_scr_textblancfields,&
+                            opt => casta_scr_opt,&
+                            linestart => casta_scr_linestart,&
+                            linereturn => casta_scr_linereturn,&
+                            instextwof => casta_scr_textwof,&
+                            instextfar => casta_scr_textfar,&
+                            instextfal => casta_scr_textfal
+        character(len=*),intent(in),optional :: name,descr,curdate,curtime
+        call insline(symb1=':',symb2=':',symb3=':')
+        call linestart()
+        if (present(descr)) then
+            call instextfar(text=descr,field=opt%field1)
+        else
+            call instextwof(text=' ',rep=opt%field1)
+        end if
+        call instextwof(text=' ',rep=1)
+        if (present(name)) then
+            call instextfar(text=name,field=opt%field2,blanc=':')
+        else
+            call instextfar(text='',field=opt%field2,blanc=':')
+        end if
+        call instextwof(text=' ',rep=1)
+        call instextfal(text='ACTION ENTRY',field=opt%field3,blanc=':')
+        call linereturn()
+        if (present(curdate)) call instext(text2='CURRENT DATE',text3=curdate,align2='r')
+        if (present(curtime)) call instext(text2='CURRENT TIME',text3=curtime,align2='r')
+        call linestart()
+        call instextwof(text='-',rep=opt%field1+opt%field2+opt%field3+2)
+        call linereturn()
+    end subroutine casta_action_entry
+
+    subroutine casta_action_exit(res,curdate,curtime,exetime)
+        use casta_scr,only: insline => casta_scr_linesymbolfields,&
+                            instext => casta_scr_textblancfields,&
+                            opt => casta_scr_opt,&
+                            linestart => casta_scr_linestart,&
+                            linereturn => casta_scr_linereturn,&
+                            instextwof => casta_scr_textwof,&
+                            instextfar => casta_scr_textfar,&
+                            instextfal => casta_scr_textfal
+        character(len=*),intent(in),optional :: res,curdate,curtime,exetime
+        call linestart()
+        call instextwof(text='-',rep=opt%field1+opt%field2+opt%field3+2)
+        call linereturn()
+        if (present(curdate)) call instext(text2='CURRENT DATE',text3=curdate,align2='r')
+        if (present(curtime)) call instext(text2='CURRENT TIME',text3=curtime,align2='r')
+        if (present(exetime)) call instext(text2='EXECUTING TIME',text3=exetime,align2='r')
+        call linestart()
+        if (present(res)) then
+            call instextfar(text=res,field=opt%field1)
+        else
+            call instextwof(text=' ',rep=opt%field1)
+        end if
+        call instextwof(text=' ',rep=1)
+        call instextfar(text='RESULT',field=opt%field2,blanc=':')
+        call instextwof(text=' ',rep=1)
+        call instextfal(text='ACTION EXIT',field=opt%field3,blanc=':')
+        call linereturn()
+        call insline(symb1=':',symb2=':',symb3=':')
+
+    end subroutine casta_action_exit
+
+end module casta_action
