@@ -54,7 +54,7 @@ program hello
     call casta_scr_textblancfields(&
     text1='text1',text2='text2',text3='text3',blanc1='>',blanc2='=',blanc3='-')
 
-    call casta_scr_setfields(field1=0,field2=0,field3=0)
+    !call casta_scr_setfields(field1=0,field2=0,field3=0)
     call casta_appl_entry(name='project',curdate='12.10.2025',curtime='16:23:35.123',&
                           comline='d:/erte/esrgerreg/ergtretgert/project',&
                           curwdir='d:/erte/esrgerreg/ergtretgert',&
@@ -72,11 +72,20 @@ program hello
     call casta_task_entry(name='inputting',curdate='12.10.2025',curtime='16:23:35.123',&
                          descr='it is testing for casta job')
     call casta_task_message(mes1='mes1',mes2='mes2',mes3='mes3')
-    call casta_action_entry(curdate='12.10.2025',curtime='16:23:35.123',&
-                         descr='it is testing for casta action')
-    call casta_action_exit(curdate='12.10.2025',curtime='16:23:35.123',exetime='00:02:45.234',res='successful')
     call casta_action_entry(descr='it is testing for casta action')
+    !call casta_action_exec(part=1.0)
     call casta_action_exit(res='successful')
+    !call casta_action_entry(curtime='16:23:35.123',descr='it is testing for casta action')
+    !call casta_action_exec(part=0.55)
+    !call casta_action_terminate()
+    !call casta_action_exit(res='failure',curtime='16:23:45.234')
+    !call casta_action_entry(curtime='16:23:35.123',descr='it is testing for casta action')
+    !call casta_action_exec()
+    !call casta_action_exit(res='failure',curtime='16:23:45.234')
+
+    !call casta_action_exit(curdate='12.10.2025',curtime='16:23:35.123',exetime='00:02:45.234',res='successful')
+    !call casta_action_entry(descr='it is testing for casta action')
+    !call casta_action_exit(res='successful')
     call casta_task_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
     call casta_job_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
     call casta_appl_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
