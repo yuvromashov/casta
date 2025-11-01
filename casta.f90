@@ -518,40 +518,41 @@ module casta_action
     subroutine casta_action_entry(descr,curtime)
         use casta_scr,only: insline => casta_scr_linesymbolfields,&
                             instext => casta_scr_textblancfields,&
-                            opt => casta_scr_opt,&
                             linestart => casta_scr_linestart,&
                             linereturn => casta_scr_linereturn,&
-                            instextwof => casta_scr_textwof,&
-                            instextfar => casta_scr_textfar,&
-                            instextfal => casta_scr_textfal,&
-                            instextfal1 => casta_scr_textfal1
+                            instextwof => casta_scr_textwof
         character(len=*),intent(in) :: descr
         character(len=*),intent(in),optional :: curtime
-        character(len=255) :: text1,text2,text3
-        call insline(symb1=':',symb2=':',symb3=':')
-        write(unit=text1,fmt=10) descr
+        character(len=255) :: text
         if (present(curtime)) then
-            text2='CURRENT TIME'
-            text3=curtime
-        else
-            text2=''
-            text3=''
+            call insline(symb1=' ',symb2=':',symb3=' ')
+            call instext(text1='ACTION ENTRY',text2='',text3='',align1='r',blanc2=':',blanc3=':')
+            if (curtime.ne.'') call instext(text1='CURRENT TIME',text2=curtime,text3='',align1='r')
         end if
-       call instext(text1=text1,text2=text2,text3=text3,align2='r')
-       10 format('ACTION ENTRY::::::: ',A)
+        call linestart()
+        call instextwof(text=':',rep=19)
+        call linereturn()
+        write(unit=text,fmt=10) descr
+        call linestart()
+        call instextwof(text=text)
+        call linereturn()
+        10 format(':::::::: RUNNING:',1X,A)
     end subroutine casta_action_entry
 
     subroutine casta_action_execentry()
        use casta_scr,only:  linestart => casta_scr_linestart,&
                             instextwof => casta_scr_textwof
        call linestart()
-       call instextwof(text='                    ACTION EXECUTING',rep=1)
+       call instextwof(text=' ',rep=9)
+       call instextwof(text=':',rep=8)
+       call instextwof(text=' ',rep=1)
+       call instextwof(text='EXECUTING')
     end subroutine casta_action_execentry
 
     subroutine casta_action_execute(percentage)
         real,intent(in) :: percentage
         write(unit=*,fmt=10,advance='no') char(13),percentage
-        10  FORMAT(A,1X,F7.3,' %')
+        10 format(A,1X,F7.3,'%')
     end subroutine casta_action_execute
 
     subroutine casta_action_execexit()
@@ -559,54 +560,51 @@ module casta_action
         call linereturn()
     end subroutine casta_action_execexit
 
-    subroutine cacta_action_comment(text)
-        use casta_scr,only: insline => casta_scr_linesymbolfields,&
-                            instext => casta_scr_textblancfields,&
-                            opt => casta_scr_opt,&
+    subroutine casta_action_comment(text)
+        use casta_scr,only: opt => casta_scr_opt,&
                             linestart => casta_scr_linestart,&
                             linereturn => casta_scr_linereturn,&
-                            instextwof => casta_scr_textwof,&
-                            instextfar => casta_scr_textfar,&
-                            instextfal => casta_scr_textfal
+                            instextwof => casta_scr_textwof
         character(len=*),intent(in),optional :: text
-        call linestart()
-        call instextwof(text=':',rep=19)
         if (present(text)) then
-            call instextwof(text=' ',rep=1)
+            call linestart()
+            call instextwof(text=' ',rep=18)
             call instextwof(text=text)
+            call linereturn()
+        else
+            call linestart()
+            call instextwof(text=':',rep=opt%field1+opt%field2+opt%field3+2)
+            call linereturn()
         end if
-        call linereturn()
-    end subroutine cacta_action_comment
+    end subroutine casta_action_comment
 
     subroutine casta_action_exit(res,curtime,exectime)
         use casta_scr,only: insline => casta_scr_linesymbolfields,&
                             instext => casta_scr_textblancfields,&
-                            opt => casta_scr_opt,&
                             linestart => casta_scr_linestart,&
                             linereturn => casta_scr_linereturn,&
-                            instextwof => casta_scr_textwof,&
-                            instextfar => casta_scr_textfar,&
-                            instextfal => casta_scr_textfal
+                            instextwof => casta_scr_textwof
         character(len=*),intent(in) :: res
         character(len=*),intent(in),optional :: curtime,exectime
-        character(len=255) :: text1,text2,text3
-        write(unit=text1,fmt=10) res
-        if (present(curtime)) then
-            text2='CURRENT TIME'
-            text3=curtime
-        else
-            text2=''
-            text3=''
+        character(len=255) :: text
+        call linestart()
+        call instextwof(text=' ',rep=18)
+        call instextwof(text=':',rep=9)
+        call linereturn()
+        write(unit=text,fmt=10) res
+        call linestart()
+        call instextwof(text=text)
+        call linereturn()
+        call linestart()
+        call instextwof(text=':',rep=25)
+        call linereturn()
+        if (present(curtime)) call instext(text1='CURRENT TIME',text2=curtime,text3='',align1='r')
+        if (present(exectime)) call instext(text1='EXECUTION TIME',text2=exectime,text3='',align1='r')
+        if (present(curtime).or.present(exectime)) then
+            call instext(text1='ACTION EXIT',text2='',text3='',align1='r',blanc2=':',blanc3=':')
+            call insline(symb1=' ',symb2=':',symb3=' ')
         end if
-        call instext(text1=text1,text2=text2,text3=text3,align2='r')
-        if (present(exectime)) then
-            text1=''
-            text2='EXECUTION TIME'
-            text3=exectime
-            call instext(text1=text1,text2=text2,text3=text3,align2='r')
-        end if
-        call insline(symb1=':',symb2=':',symb3=':')
-        10 format('ACTION EXIT:::::::: ',A)
+        10 format(17X,' RESULT:',1X,A)
     end subroutine casta_action_exit
 
 end module casta_action

@@ -74,44 +74,32 @@ program hello
                          descr='it is testing for casta job')
     call casta_task_message(mes1='mes1',mes2='mes2',mes3='mes3')
     call casta_action_entry(descr='it is testing for casta action')
-    !call casta_action_execute()
+    call casta_action_comment(text='it is testing for casta action comment')
     call casta_action_exit(res='successful')
-    call casta_action_entry(descr='it is testing for casta action',curtime='16:23:35.123')
-    !call casta_action_execute()
-    call casta_action_exit(res='successful',curtime='16:23:35.123',exectime='16:23:35.123')
-    call casta_action_entry(descr='it is testing for casta action',curtime='16:23:35.123')
+    call casta_action_entry(descr='it is testing for casta action')
+    call casta_action_exit(res='successful')
+    call casta_action_entry(descr='it is testing for casta action')
     call casta_action_execentry()
-    call casta_action_comment()
     do i=1,10
         call casta_action_execute(percentage=100.0*i/10)
         call sleep(1)
     end do
     call casta_action_execexit()
+    call casta_action_exit(res='successful')
+    call casta_action_entry(descr='it is testing for casta action',curtime='16:23:35.123')
+    call casta_action_comment()
+    call casta_action_execentry()
+    do i=1,10
+        call casta_action_execute(percentage=100.0*i/10)
+        call sleep(1)
+    end do
+    call casta_action_execexit()
+    call casta_action_comment()
     call casta_action_exit(res='successful',curtime='16:23:35.123',exectime='16:23:35.123')
-
-
-
-    !call casta_action_entry(curtime='16:23:35.123',descr='it is testing for casta action')
-    !call casta_action_exec(part=0.55)
-    !call casta_action_terminate()
-    !call casta_action_exit(res='failure',curtime='16:23:45.234')
-    !call casta_action_entry(curtime='16:23:35.123',descr='it is testing for casta action')
-    !call casta_action_exec()
-    !call casta_action_exit(res='failure',curtime='16:23:45.234')
-
-    !call casta_action_exit(curdate='12.10.2025',curtime='16:23:35.123',exetime='00:02:45.234',res='successful')
-    !call casta_action_entry(descr='it is testing for casta action')
-    !call casta_action_exit(res='successful')
     call casta_task_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
     call casta_job_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
     call casta_appl_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
     call casta_appl_finalpause()
-
-
-
-
-
-
 
 end program
 
