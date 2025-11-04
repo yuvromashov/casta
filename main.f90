@@ -5,8 +5,10 @@ program hello
     use casta_job
     use casta_task
     use casta_action
+    use casta_ioroutines
     implicit none
     integer :: i
+    character(len=255) :: inp
 
     print *, "Hello World!"
 
@@ -80,26 +82,37 @@ program hello
     call casta_action_exit(res='successful')
     call casta_action_entry(descr='it is testing for casta action')
     call casta_action_execentry()
-    do i=1,10
-        call casta_action_execute(percentage=100.0*i/10)
-        call sleep(1)
-    end do
+    !do i=1,10
+    !    call casta_action_execute(percentage=100.0*i/10)
+    !    call sleep(1)
+    !end do
     call casta_action_execexit()
     call casta_action_exit(res='successful')
     call casta_action_entry(descr='it is testing for casta action',curtime='16:23:35.123')
     call casta_action_comment()
     call casta_action_execentry()
-    do i=1,10
-        call casta_action_execute(percentage=100.0*i/10)
-        call sleep(1)
-    end do
+    !do i=1,10
+    !    call casta_action_execute(percentage=100.0*i/10)
+    !    call sleep(1)
+    !end do
     call casta_action_execexit()
     call casta_action_comment()
     call casta_action_exit(res='successful',curtime='16:23:35.123',exectime='16:23:35.123')
+
+    call casta_ioroutines_inputentry(res=inp,inpname='test name of inputed value')
+    call casta_ioroutines_inputexit()
+    call casta_ioroutines_inputentry(res=inp,inpname='test name of inputed value',inpfmt='F10.3',posval='any value')
+    call casta_ioroutines_inputexit(res=inp)
+    call casta_ioroutines_inputentry(res=inp,inpname='test name of inputed value',inpfmt='F10.3',posval='any value',&
+                                     defval='default')
+    call casta_ioroutines_inputcomment(text='then entered value is correct')
+    call casta_ioroutines_inputexit(res=inp)
+
+
+
     call casta_task_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
     call casta_job_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
     call casta_appl_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
     call casta_appl_finalpause()
-
 end program
 
