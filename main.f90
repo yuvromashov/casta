@@ -9,6 +9,7 @@ program hello
     implicit none
     integer :: i
     character(len=255) :: inp
+    character(len=255),dimension(10) :: menuitems
 
     print *, "Hello World!"
 
@@ -99,14 +100,22 @@ program hello
     call casta_action_comment()
     call casta_action_exit(res='successful',curtime='16:23:35.123',exectime='16:23:35.123')
 
-    call casta_ioroutines_inputentry(res=inp,inpname='test name of inputed value')
-    call casta_ioroutines_inputexit()
-    call casta_ioroutines_inputentry(res=inp,inpname='test name of inputed value',inpfmt='F10.3',posval='any value')
-    call casta_ioroutines_inputexit(res=inp)
-    call casta_ioroutines_inputentry(res=inp,inpname='test name of inputed value',inpfmt='F10.3',posval='any value',&
-                                     defval='default')
-    call casta_ioroutines_inputcomment(text='then entered value is correct')
-    call casta_ioroutines_inputexit(res=inp)
+    !call casta_ioroutines_inputentry(res=inp,inpname='test name of inputed value')
+    !call casta_ioroutines_inputexit()
+    !call casta_ioroutines_inputentry(res=inp,inpname='test name of inputed value',inpfmt='F10.3',posval='any value')
+    !call casta_ioroutines_inputexit(res=inp)
+    !call casta_ioroutines_inputentry(res=inp,inpname='test name of inputed value',inpfmt='F10.3',posval='any value',&
+    !                                 defval='default')
+    !call casta_ioroutines_inputcomment(text='then entered value is correct')
+    !call casta_ioroutines_inputexit(res=inp)
+
+    do i=1,size(menuitems)
+        write(unit=menuitems(i),fmt='(''it is the title of the menu'',1X,I2.2,1X,''for testing'')') i
+    end do
+    i=casta_ioroutines_menu(items=menuitems,caption=' it is test for menu caption',defitemnum=0)
+    print*,i
+    i=casta_ioroutines_menu(items=menuitems,caption=' it is test for menu caption',defitemnum=3)
+    print*,i
 
 
 

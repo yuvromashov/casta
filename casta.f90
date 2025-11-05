@@ -511,8 +511,6 @@ end module casta_task
 
 module casta_action
 
-    integer, private :: exec
-
     contains
 
     subroutine casta_action_entry(descr,curtime)
@@ -614,110 +612,14 @@ end module casta_action
 module casta_ioroutines
     contains
 
-    subroutine casta_iotools_inputentry(res,name,defvalue,fmti,posi)
-        use casta_scr,only: opt => casta_scr_opt,&
-                            insline => casta_scr_linesymbolfields,&
-                            instext => casta_scr_textblancfields,&
-                            linestart => casta_scr_linestart,&
-                            linereturn => casta_scr_linereturn,&
-                            instextwof => casta_scr_textwof,&
-                            instextfal1 => casta_scr_textfal1,&
-                            instextfal3 => casta_scr_textfal3,&
-                            instextfar2 => casta_scr_textfar2,&
-                            instextfar => casta_scr_textfar,&
-                            instextfar1 => casta_scr_textfar1
-        character(len=*),intent(out) :: res
-        character(len=*),intent(in),optional :: name,defvalue,fmti,posi
-        integer, parameter :: field=18
-        call insline(symb1=' ',symb2='-',symb3='-')
-        call linestart()
-        if (present(name)) then
-            call instextfal1(text=name)
-        else
-            call instextfal1(text='')
-        end if
-        call instextwof(text=' ',rep=1)
-        call instextfar2(text='INPUTTING')
-        if (present(posi)) then
-            call instextwof(text=' ',rep=1)
-            call instextfal3(text=posi)
-        end if
-        call linereturn()
-        call linestart()
-        call instextfar1(text='type the value and press enter')
-        if (present(fmti)) then
-            call instextwof(text=' ',rep=1)
-            call instextfar2(text='FORMAT')
-            call instextwof(text=' ',rep=1)
-            call instextfal3(text=fmti)
-        end if
-        call linereturn()
-        if (present(defvalue)) then
-            call linestart()
-            call instextfar1(text='or just press enter to assign')
-            call linereturn()
-        end if
-        if (present(defvalue)) then
-            call linestart()
-            call instextwof(text='the default value:')
-            call instextwof(text=' ',rep=1)
-            call instextwof(text=defvalue)
-            call linereturn()
-        end if
-        call linestart()
-        call instextwof(text=' ',rep=field+1)
-        call instextwof(text='-',rep=opt%field1+opt%field2+opt%field3+2-field-1)
-        call linereturn()
-        call linestart()
-        call instextfar(text='to input:',field=field)
-        call instextwof(text=' ',rep=1)
-        read(unit=*,fmt='(A)') res
-        if (present(defvalue).and.(res.eq.'')) res=defvalue
-    end subroutine casta_iotools_inputentry
-
-    subroutine casta_iotools_inputcomment(text)
-        use casta_scr,only: linestart => casta_scr_linestart,&
-                            linereturn => casta_scr_linereturn,&
-                            instextwof => casta_scr_textwof
-        character(len=*),intent(in),optional :: text
-        integer,parameter :: field=18
-        call linestart()
-        call instextwof(text='-',rep=field)
-        call instextwof(text=' ',rep=1)
-        if (present(text)) call instextwof(text=text)
-        call linereturn()
-    end subroutine casta_iotools_inputcomment
-
-    subroutine casta_iotools_inputexit(res)
-        use casta_scr,only: insline => casta_scr_linesymbolfields,&
-                            linestart => casta_scr_linestart,&
-                            linereturn => casta_scr_linereturn,&
-                            instextwof => casta_scr_textwof,&
-                            instextfar => casta_scr_textfar
-        character(len=*),intent(out) :: res
-        integer, parameter :: field=18
-        call casta_iotools_inputcomment()
-        call linestart()
-        call instextfar(text='INPUTED VALUE:',field=field)
-        call instextwof(text=' ',rep=1)
-        call instextwof(text=res)
-        call linereturn()
-        call insline(symb1='-',symb2=' ',symb3=' ')
-    end subroutine casta_iotools_inputexit
-
-
     subroutine casta_ioroutines_inputentry(res,inpname,inpfmt,posval,defval)
-        use casta_scr,only: opt => casta_scr_opt,&
-                            insline => casta_scr_linesymbolfields,&
-                            instext => casta_scr_textblancfields,&
+        use casta_scr,only: insline => casta_scr_linesymbolfields,&
                             linestart => casta_scr_linestart,&
                             linereturn => casta_scr_linereturn,&
                             instextwof => casta_scr_textwof,&
                             instextfal1 => casta_scr_textfal1,&
                             instextfal2 => casta_scr_textfal2,&
                             instextfal3 => casta_scr_textfal3,&
-                            instextfar2 => casta_scr_textfar2,&
-                            instextfar => casta_scr_textfar,&
                             instextfar1 => casta_scr_textfar1,&
                             instextfar2 => casta_scr_textfar2
         character(len=*),intent(out) :: res
@@ -775,9 +677,16 @@ module casta_ioroutines
     end subroutine casta_ioroutines_inputentry
 
     subroutine casta_ioroutines_inputcomment(text)
-        use casta_scr,only: instext => casta_scr_textblancfields
+        use casta_scr,only: opt => casta_scr_opt,&
+                            linestart => casta_scr_linestart,&
+                            linereturn => casta_scr_linereturn,&
+                            instextwof => casta_scr_textwof
         character(len=*),intent(in) :: text
-        call instext(text2=text)
+        call linestart()
+        call instextwof(text=' ',rep=opt%field1)
+        call instextwof(text=' ',rep=1)
+        call instextwof(text=text)
+        call linereturn()
     end subroutine casta_ioroutines_inputcomment
 
     subroutine casta_ioroutines_inputexit(res)
@@ -799,7 +708,97 @@ module casta_ioroutines
         call insline(symb1='-',symb2='-',symb3=' ')
     end subroutine casta_ioroutines_inputexit
 
-
+    function casta_ioroutines_menu(items,caption,defitemnum) result(res)
+        use casta_scr,only: opt => casta_scr_opt,&
+                            insline => casta_scr_linesymbolfields,&
+                            instext => casta_scr_textblancfields,&
+                            linestart => casta_scr_linestart,&
+                            linereturn => casta_scr_linereturn,&
+                            instextwof => casta_scr_textwof,&
+                            instextfal3 => casta_scr_textfal3,&
+                            instextfar1 => casta_scr_textfar1
+        integer :: res
+        character(len=*),dimension(:),intent(in) :: items
+        character(len=*),intent(in),optional :: caption
+        integer,optional :: defitemnum
+        integer :: counti,defi,i,ios
+        character(len=2) :: cres
+        character(len=255) :: text
+        call insline(symb1=':',symb2=':',symb3=':')
+        if (present(caption)) then
+            call instext(text1=caption,blanc1=':',&
+                         text2=' MENU',align2='r',&
+                         blanc3=':')
+        else
+            call instext(text2=' MENU',align2='r',blanc1=':',blanc3=':',blanc2=':')
+        end if
+        counti=size(items)
+        if (present(defitemnum)) then
+            defi=defitemnum
+            if ((defi.lt.0).or.(defi.gt.counti)) defi=-1
+        else
+            defi=-1
+        end if
+        100 call instext(text1='ITEMS',align1='r',blanc1=':',text2='-> NUMBERS',blanc2=':',blanc3=':')
+        call printitem('EXIT MENU',0)
+        do i=1,size(items)
+            call printitem(items(i),i)
+        end do
+        write(unit=text,fmt=10) 0,counti
+        call casta_ioroutines_inputentry(res=cres,inpname='NUMBER OF THE CHOSEN ITEM',posval=text)
+        if ((defi.ge.0).and.(cres.eq.'')) then
+            res=defi
+            text='SUCCESSFUL INPUTTING'
+            call casta_ioroutines_inputcomment(text=text)
+            write(unit=text,fmt=20) res
+            ios=0
+        else
+            read(unit=cres,fmt='(I2)',iostat=ios) res
+            if (ios.ne.0) then
+                call casta_ioroutines_inputcomment(text='INPUTED NUMBER IS NOT INTEGER')
+                text='NOT DEFINED, TRY INPUTTING AGAIN'
+            else
+                if ((res.lt.0).or.(res.gt.counti)) then
+                    write(unit=text,fmt=30) res,0,counti
+                    call casta_ioroutines_inputcomment(text=text)
+                    text='NOT DEFINED, TRY INPUTTING AGAIN'
+                    ios=1
+                else
+                    text='SUCCESSFUL INPUTTING'
+                    call casta_ioroutines_inputcomment(text=text)
+                    write(unit=text,fmt=20) res
+                end if
+            end if
+        end if
+        call casta_ioroutines_inputexit(res=text)
+        if (ios.ne.0) goto 100
+        call insline(symb1=':',symb2=':',symb3=':')
+        10 format('INTEGER BETWEEN',1X,I2,1X,'AND',1X,I2)
+        20 format(I2)
+        30 format('INPUTED NUMBER',1X,I2,1X,'IS NOT BETWEEN',1X,I2,1X,'AND',1X,I2)
+        contains
+        subroutine printitem(captionitem,numberitem)
+            character(len=*),intent(in) :: captionitem
+            integer,intent(in) :: numberitem
+            character(len=5) :: inum
+            write(unit=inum,fmt=10) numberitem
+            if (defi.eq.numberitem) then
+                call linestart()
+                call instextfar1(text=captionitem,blanc='.')
+                call instextwof(text=' ',rep=1)
+                call instextwof(text=inum)
+                call instextwof(text=' ',rep=1)
+                call instextwof(text='-',rep=opt%field2-7)
+                call instextwof(text='>')
+                call instextwof(text=' ',rep=1)
+                call instextfal3(text='DEFAULT')
+                call linereturn()
+            else
+                call instext(text1=captionitem,align1='r',blanc1='.',text2=inum,blanc3=':')
+            end if
+            10 format('->',1X,I2)
+        end subroutine printitem
+    end function casta_ioroutines_menu
 
 
 end module casta_ioroutines
