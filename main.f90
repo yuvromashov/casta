@@ -1,11 +1,11 @@
 
 program hello
     use casta_scr
-    use casta_appl
-    use casta_job
-    use casta_task
-    use casta_action
-    use casta_ioroutines
+    !use casta_appl
+    !use casta_job
+    !use casta_task
+    !use casta_action
+    !use casta_ioroutines
     implicit none
     integer :: i
     character(len=255) :: inp
@@ -43,62 +43,62 @@ program hello
     call casta_scr_textfal(text='text',field=casta_scr_opt%field3,blanc='>')
     call casta_scr_linereturn()
 
-    call casta_scr_linesymbolfields(symb1='>',symb2='=',symb3='-')
-    call casta_scr_linesymbolfields(symb1='>')
-    call casta_scr_linesymbolfields(symb2='=')
-    call casta_scr_linesymbolfields(symb3='-')
-    call casta_scr_linesymbolfields(symb1='>',symb2='=')
-    call casta_scr_linesymbolfields(symb1='>',symb3='-')
-    call casta_scr_linesymbolfields(symb2='=',symb3='-')
-    call casta_scr_textblancfields(align1='r',align3='r',&
-    text1='text1',text2='text2',text3='text3',blanc1='>',blanc2='=',blanc3='-')
-    call casta_scr_textblancfields(align1='r',text1='text1',blanc2='>',blanc3='>')
-    call casta_scr_textblancfields(align2='r',text1='text1',blanc2='>',blanc3='>')
-    call casta_scr_textblancfields(align3='r',text1='text1',blanc2='>',blanc3='>')
-    call casta_scr_textblancfields(&
-    text1='text1',text2='text2',text3='text3',blanc1='>',blanc2='=',blanc3='-')
+    !call casta_scr_linesymbolfields(symb1='>',symb2='=',symb3='-')
+    !call casta_scr_linesymbolfields(symb1='>')
+    !call casta_scr_linesymbolfields(symb2='=')
+    !call casta_scr_linesymbolfields(symb3='-')
+    !call casta_scr_linesymbolfields(symb1='>',symb2='=')
+    !call casta_scr_linesymbolfields(symb1='>',symb3='-')
+    !call casta_scr_linesymbolfields(symb2='=',symb3='-')
+    !call casta_scr_textblancfields(align1='r',align3='r',&
+    !text1='text1',text2='text2',text3='text3',blanc1='>',blanc2='=',blanc3='-')
+    !call casta_scr_textblancfields(align1='r',text1='text1',blanc2='>',blanc3='>')
+    !call casta_scr_textblancfields(align2='r',text1='text1',blanc2='>',blanc3='>')
+    !call casta_scr_textblancfields(align3='r',text1='text1',blanc2='>',blanc3='>')
+    !call casta_scr_textblancfields(&
+    !text1='text1',text2='text2',text3='text3',blanc1='>',blanc2='=',blanc3='-')
 
     !call casta_scr_setfields(field1=0,field2=0,field3=0)
-    call casta_appl_entry(name='project',curdate='12.10.2025',curtime='16:23:35.123',&
-                          comline='d:/erte/esrgerreg/ergtretgert/project',&
-                          curwdir='d:/erte/esrgerreg/ergtretgert',&
-                          descr='it is testing for casta application')
-    call casta_appl_message(mes1='mes1',mes2='mes2',mes3='mes3')
-    call casta_appl_message(mes1='mes1')
-    call casta_appl_message(mes2='mes2')
-    call casta_appl_message(mes3='mes3')
-    call casta_appl_message(mes1='mes1',mes2='mes2')
-    call casta_appl_message(mes1='mes1',mes3='mes3')
-    call casta_appl_message(mes2='mes2',mes3='mes3')
-    call casta_job_entry(name='preprocessor',curdate='12.10.2025',curtime='16:23:35.123',&
-                         descr='it is testing for casta job')
-    call casta_job_message(mes1='mes1',mes2='mes2',mes3='mes3')
-    call casta_task_entry(name='inputting',curdate='12.10.2025',curtime='16:23:35.123',&
-                         descr='it is testing for casta job')
-    call casta_task_message(mes1='mes1',mes2='mes2',mes3='mes3')
-    call casta_action_entry(descr='it is testing for casta action')
-    call casta_action_comment(text='it is testing for casta action comment')
-    call casta_action_exit(res='successful')
-    call casta_action_entry(descr='it is testing for casta action')
-    call casta_action_exit(res='successful')
-    call casta_action_entry(descr='it is testing for casta action')
-    call casta_action_execentry()
+    !call casta_appl_entry(name='project',curdate='12.10.2025',curtime='16:23:35.123',&
+    !                      comline='d:/erte/esrgerreg/ergtretgert/project',&
+    !                      curwdir='d:/erte/esrgerreg/ergtretgert',&
+    !                      descr='it is testing for casta application')
+    !call casta_appl_message(mes1='mes1',mes2='mes2',mes3='mes3')
+    !call casta_appl_message(mes1='mes1')
+    !call casta_appl_message(mes2='mes2')
+    !call casta_appl_message(mes3='mes3')
+    !call casta_appl_message(mes1='mes1',mes2='mes2')
+    !call casta_appl_message(mes1='mes1',mes3='mes3')
+    !call casta_appl_message(mes2='mes2',mes3='mes3')
+    !call casta_job_entry(name='preprocessor',curdate='12.10.2025',curtime='16:23:35.123',&
+    !                     descr='it is testing for casta job')
+    !call casta_job_message(mes1='mes1',mes2='mes2',mes3='mes3')
+    !call casta_task_entry(name='inputting',curdate='12.10.2025',curtime='16:23:35.123',&
+    !                     descr='it is testing for casta job')
+    !call casta_task_message(mes1='mes1',mes2='mes2',mes3='mes3')
+    !call casta_action_entry(descr='it is testing for casta action')
+    !call casta_action_comment(text='it is testing for casta action comment')
+    !call casta_action_exit(res='successful')
+    !call casta_action_entry(descr='it is testing for casta action')
+    !call casta_action_exit(res='successful')
+    !call casta_action_entry(descr='it is testing for casta action')
+    !call casta_action_execentry()
     !do i=1,10
     !    call casta_action_execute(percentage=100.0*i/10)
     !    call sleep(1)
     !end do
-    call casta_action_execexit()
-    call casta_action_exit(res='successful')
-    call casta_action_entry(descr='it is testing for casta action',curtime='16:23:35.123')
-    call casta_action_comment()
-    call casta_action_execentry()
+    !call casta_action_execexit()
+    !call casta_action_exit(res='successful')
+    !call casta_action_entry(descr='it is testing for casta action',curtime='16:23:35.123')
+    !call casta_action_comment()
+    !call casta_action_execentry()
     !do i=1,10
     !    call casta_action_execute(percentage=100.0*i/10)
     !    call sleep(1)
     !end do
-    call casta_action_execexit()
-    call casta_action_comment()
-    call casta_action_exit(res='successful',curtime='16:23:35.123',exectime='16:23:35.123')
+    !call casta_action_execexit()
+    !call casta_action_comment()
+    !call casta_action_exit(res='successful',curtime='16:23:35.123',exectime='16:23:35.123')
 
     !call casta_ioroutines_inputentry(res=inp,inpname='test name of inputed value')
     !call casta_ioroutines_inputexit()
@@ -109,19 +109,19 @@ program hello
     !call casta_ioroutines_inputcomment(text='then entered value is correct')
     !call casta_ioroutines_inputexit(res=inp)
 
-    do i=1,size(menuitems)
-        write(unit=menuitems(i),fmt='(''it is the title of the menu'',1X,I2.2,1X,''for testing'')') i
-    end do
-    i=casta_ioroutines_menu(items=menuitems,caption=' it is test for menu caption',defitemnum=0)
-    print*,i
-    i=casta_ioroutines_menu(items=menuitems,caption=' it is test for menu caption',defitemnum=3)
-    print*,i
+    !do i=1,size(menuitems)
+    !    write(unit=menuitems(i),fmt='(''it is the title of the menu'',1X,I2.2,1X,''for testing'')') i
+    !end do
+    !i=casta_ioroutines_menu(items=menuitems,caption=' it is test for menu caption',defitemnum=0)
+    !print*,i
+    !i=casta_ioroutines_menu(items=menuitems,caption=' it is test for menu caption',defitemnum=3)
+    !print*,i
 
 
 
-    call casta_task_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
-    call casta_job_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
-    call casta_appl_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
-    call casta_appl_finalpause()
+    !call casta_task_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
+    !call casta_job_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
+    !call casta_appl_exit(res='successful executed',curdate='12.10.2025',curtime='12:32:45.234',exetime='00:02:45.234')
+    !call casta_appl_finalpause()
 end program
 
