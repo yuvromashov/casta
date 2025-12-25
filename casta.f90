@@ -115,20 +115,65 @@ module casta_scr
         end if
     end subroutine casta_scr_textfal
 
-    subroutine casta_scr_text(text,rep,field,blanc,align,text1,align1,blanc1,text2,align2,blanc2,text3,align3,blanc3)
+
+
+
+
+    subroutine casta_scr_text(text,rep,field,align,blanc,text1,align1,blanc1,text2,align2,blanc2,text3,align3,blanc3)
         character(len=*),intent(in),optional :: text,text1,text2,text3
         integer,intent(in),optional :: rep,field
-        character,intent(in),optional :: blanc,blanc1,blanc2,blanc3,align,align1,align2,align3
+        character(len=*),intent(in),optional :: blanc,blanc1,blanc2,blanc3,align,align1,align2,align3
         if (present(text)) then
             if (present(rep)) then
                 call casta_scr_textwof(text,rep)
+            elseif (present(field)) then
+                if (present(align)) then
+                    if ((align(1:1)=='r').or.(align(1:1)=='R')) then
+                        if (present(blanc)) then
+                            call casta_scr_textfar(text,field,blanc)
+                        else
+                            call casta_scr_textfar(text,field)
+                        end if
+                    else
+                        call ins_text_left()
+                    end if
+                else
+                    call ins_text_left()
+                end if
+            else
+                call casta_scr_textwof(text)
             end if
+        elseif (present(text1)) then
+
 
         end if
+
+    contains
+
+    subroutine ins_text_left()
+        if (present(blanc)) then
+            call casta_scr_textfal(text,field,blanc)
+        else
+            call casta_scr_textfal(text,field)
+        end if
+    end subroutine ins_text_left
 
 
 
     end subroutine casta_scr_text
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     subroutine casta_scr_textfar1(text,blanc)
         character(len=*), intent(in) :: text

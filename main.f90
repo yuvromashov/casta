@@ -43,6 +43,25 @@ program hello
     call casta_scr_textfal(text='text',field=casta_scr_opt%field3,blanc='>')
     call casta_scr_linereturn()
 
+    call casta_scr_linestart()
+    call casta_scr_text(text=">",rep=10)
+    call casta_scr_text(text=" ",rep=1)
+    call casta_scr_text(text="SDFVSDFSDF")
+    call casta_scr_text(text=" ",rep=1)
+    call casta_scr_text(text="SDFVSDFSDF",field=15)
+    call casta_scr_text(text="|",rep=1)
+    call casta_scr_text(text="SDFVSDFSDF",field=15,blanc='.')
+    call casta_scr_text(text="|",rep=1)
+    call casta_scr_text(text="SDFVSDFSDF",field=15,align='r')
+    call casta_scr_text(text="|",rep=1)
+    call casta_scr_text(text="SDFVSDFSDF",field=15,align='r',blanc='.')
+    call casta_scr_text(text="|",rep=1)
+
+    call casta_scr_linereturn()
+
+
+
+
     !call casta_scr_linesymbolfields(symb1='>',symb2='=',symb3='-')
     !call casta_scr_linesymbolfields(symb1='>')
     !call casta_scr_linesymbolfields(symb2='=')
