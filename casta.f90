@@ -19,6 +19,7 @@ module casta_scr
     public casta_scr_setfields,&
            casta_scr_linestart,casta_scr_linereturn,&
            casta_scr_textwof,casta_scr_textfar,casta_scr_textfal,&
+           casta_scr_text,&
            casta_scr_textfar1,casta_scr_textfar2,casta_scr_textfar3,&
            casta_scr_textfal1,casta_scr_textfal2,casta_scr_textfal3,&
            casta_scr_linesymbolfields,casta_scr_textblancfields
@@ -115,14 +116,13 @@ module casta_scr
         end if
     end subroutine casta_scr_textfal
 
-
-
-
-
-    subroutine casta_scr_text(text,rep,field,align,blanc,text1,align1,blanc1,text2,align2,blanc2,text3,align3,blanc3)
+    subroutine casta_scr_text(text,rep,field,align,blanc,text1,align1,blanc1,text2,align2,blanc2,text3,align3,blanc3,newline)
         character(len=*),intent(in),optional :: text,text1,text2,text3
         integer,intent(in),optional :: rep,field
-        character(len=*),intent(in),optional :: blanc,blanc1,blanc2,blanc3,align,align1,align2,align3
+        character(len=*),intent(in),optional :: blanc,blanc1,blanc2,blanc3,align,align1,align2,align3,newline
+        if (present(newline)) then
+            if ((newline(1:1)=='y').or.(newline(1:1)=='Y')) call casta_scr_linestart()
+        end if
         if (present(text)) then
             if (present(rep)) then
                 call casta_scr_textwof(text,rep)
@@ -135,41 +135,99 @@ module casta_scr
                             call casta_scr_textfar(text,field)
                         end if
                     else
-                        call ins_text_left()
+                        if (present(blanc)) then
+                            call casta_scr_textfal(text,field,blanc)
+                        else
+                            call casta_scr_textfal(text,field)
+                        end if
                     end if
                 else
-                    call ins_text_left()
+                    if (present(blanc)) then
+                        call casta_scr_textfal(text,field,blanc)
+                    else
+                        call casta_scr_textfal(text,field)
+                    end if
                 end if
             else
                 call casta_scr_textwof(text)
             end if
-        elseif (present(text1)) then
-
-
-        end if
-
-    contains
-
-    subroutine ins_text_left()
-        if (present(blanc)) then
-            call casta_scr_textfal(text,field,blanc)
         else
-            call casta_scr_textfal(text,field)
+            if (present(text1)) then
+                if (present(align1)) then
+                    if ((align1(1:1)=='r').or.(align1(1:1)=='R')) then
+                        if (present(blanc1)) then
+                            call casta_scr_textfar(text1,casta_scr_opt%field1,blanc1)
+                        else
+                            call casta_scr_textfar(text1,casta_scr_opt%field1)
+                        end if
+                    else
+                        if (present(blanc1)) then
+                            call casta_scr_textfal(text1,casta_scr_opt%field1,blanc1)
+                        else
+                            call casta_scr_textfal(text1,casta_scr_opt%field1)
+                        end if
+                    end if
+                else
+                    if (present(blanc1)) then
+                        call casta_scr_textfal(text1,casta_scr_opt%field1,blanc1)
+                    else
+                        call casta_scr_textfal(text1,casta_scr_opt%field1)
+                    end if
+                end if
+                if (present(text2)) call casta_scr_textwof(text=' ',rep=1)
+            end if
+            if (present(text2)) then
+                if (present(align2)) then
+                    if ((align2(1:1)=='r').or.(align2(1:1)=='R')) then
+                        if (present(blanc2)) then
+                            call casta_scr_textfar(text2,casta_scr_opt%field2,blanc2)
+                        else
+                            call casta_scr_textfar(text2,casta_scr_opt%field2)
+                        end if
+                    else
+                        if (present(blanc2)) then
+                            call casta_scr_textfal(text2,casta_scr_opt%field2,blanc2)
+                        else
+                            call casta_scr_textfal(text2,casta_scr_opt%field2)
+                        end if
+                    end if
+                else
+                    if (present(blanc2)) then
+                        call casta_scr_textfal(text2,casta_scr_opt%field2,blanc2)
+                    else
+                        call casta_scr_textfal(text2,casta_scr_opt%field2)
+                    end if
+                end if
+                if (present(text3)) call casta_scr_textwof(text=' ',rep=1)
+            end if
+            if (present(text3)) then
+                if (present(align3)) then
+                    if ((align3(1:1)=='r').or.(align3(1:1)=='R')) then
+                        if (present(blanc3)) then
+                            call casta_scr_textfar(text3,casta_scr_opt%field3,blanc3)
+                        else
+                            call casta_scr_textfar(text3,casta_scr_opt%field3)
+                        end if
+                    else
+                        if (present(blanc3)) then
+                            call casta_scr_textfal(text3,casta_scr_opt%field3,blanc3)
+                        else
+                            call casta_scr_textfal(text3,casta_scr_opt%field3)
+                        end if
+                    end if
+                else
+                    if (present(blanc3)) then
+                        call casta_scr_textfal(text3,casta_scr_opt%field3,blanc3)
+                    else
+                        call casta_scr_textfal(text3,casta_scr_opt%field3)
+                    end if
+                end if
+            end if
         end if
-    end subroutine ins_text_left
-
-
-
+        if (present(newline)) then
+            if ((newline(1:1)=='y').or.(newline(1:1)=='Y')) call casta_scr_linereturn()
+        end if
     end subroutine casta_scr_text
-
-
-
-
-
-
-
-
-
 
 
 

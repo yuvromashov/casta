@@ -56,8 +56,49 @@ program hello
     call casta_scr_text(text="|",rep=1)
     call casta_scr_text(text="SDFVSDFSDF",field=15,align='r',blanc='.')
     call casta_scr_text(text="|",rep=1)
-
     call casta_scr_linereturn()
+
+
+
+    call casta_scr_linestart()
+    call casta_scr_text(text1='',blanc1='>')
+    call casta_scr_text(text=' ',rep=1)
+    call casta_scr_text(text2='')
+    call casta_scr_text(text=' ',rep=1)
+    call casta_scr_text(text3='',blanc3='>')
+    call casta_scr_linereturn()
+
+    call casta_scr_linestart()
+    call casta_scr_text(text1='',blanc1='>')
+    call casta_scr_text(text=' ',rep=1)
+    call casta_scr_text(text2='',blanc2='>')
+    call casta_scr_text(text=' ',rep=1)
+    call casta_scr_text(text3='',blanc3='>')
+    call casta_scr_linereturn()
+
+    call casta_scr_linestart()
+    call casta_scr_text(text1='text1')
+    call casta_scr_text(text=' ',rep=1)
+    call casta_scr_text(text2='text2')
+    call casta_scr_text(text=' ',rep=1)
+    call casta_scr_text(text3='text3')
+    call casta_scr_linereturn()
+
+    call casta_scr_linestart()
+    call casta_scr_text(text1='text1',text2='text2',text3='text3')
+    call casta_scr_linereturn()
+
+    call casta_scr_linestart()
+    call casta_scr_text(text1='',text2='',text3='',blanc1='>',blanc2='>',blanc3='>')
+    call casta_scr_linereturn()
+
+
+    call casta_scr_text(text1='',text2='',text3='',blanc1='=',blanc2='=',blanc3='=',newline='yes')
+
+    call casta_scr_text(text1='text1',text2='text2',text3='text3',blanc1='=',blanc2='=',blanc3='=',&
+                        align1='right',align2='Left',align3='Right',&
+                        newline='yes')
+
 
 
 
